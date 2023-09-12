@@ -1,6 +1,6 @@
 Package: DeProViR
 Type: Package
-Title: Deep-Learning Framework Based on Pre-trained Sequence Embeddings for 
+Title: A Deep-Learning Framework Based on Pre-trained Sequence Embeddings for 
    Predicting Host-Viral Protein-Protein Interactions
 Version: 0.1.0
 Authors@R: c(
