@@ -23,7 +23,7 @@ You can refer to the official TensorFlow documentation
 (https://keras.rstudio.com) for detailed instructions on these 
 installations and connecting R with these libraries.
 
-You can then install the `DeProvIR` from bioconductor using:
+You can then install the `DeProViR` from bioconductor using:
 
 ```r
 if(!requireNamespace("BiocManager", quietly = TRUE)) {
