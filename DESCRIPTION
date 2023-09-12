@@ -1,0 +1,53 @@
+Package: DeProViR
+Type: Package
+Title: Emerging infectious diseases, exemplified by the zoonotic COVID-19 
+   pandemic caused by SARS-CoV-2, are grave global threats. Understanding 
+   protein-protein interactions (PPIs) between host and viral proteins is 
+   essential for therapeutic targets and insights into pathogen replication and 
+   immune evasion. While experimental methods like yeast two-hybrid screening and 
+   mass spectrometry provide valuable insights, they are hindered by experimental 
+   noise and costs, yielding incomplete interaction maps. Computational models, 
+   notably DeProViR, predict PPIs from amino acid sequences, incorporating 
+   semantic information with GloVe embeddings. DeProViR employs a Siamese 
+   neural network, integrating convolutional and Bi-LSTM networks to enhance 
+   accuracy. It overcomes limitations of feature engineering, offering an 
+   efficient means to predict host-virus interactions, which holds promise 
+   for antiviral therapies and advancing our understanding of infectious diseases.
+Version: 0.1.0
+Authors@R: c(
+    person("Matineh", "Rahmatbakhsh", ,"matinerb.94@gmail.com",c("aut","trl","cre")))
+Description: A deep learning framework for modeling and predicting 
+   virus-human interactions from primary amino acid sequences using Siamese-like
+   neural architecture and GloVe embedding.
+License: MIT+ file LICENSE
+Encoding: UTF-8
+URL: https://github.com/mrbakhsh/DeProViR
+BugReports: https://github.com/mrbakhsh/DeProViR/issues
+Depends: 
+    keras
+Imports: 
+    caret,
+    data.table,
+    dplyr,
+    fmsb,
+    ggplot2,
+    grDevices,
+    pROC,
+    PRROC,
+    readr,
+    stats
+VignetteBuilder: knitr
+Suggests:
+   rmarkdown,
+   tensorflow,
+   reticulate,
+   BiocStyle,
+   RUnit,
+   knitr,
+   BiocGenerics
+biocViews: 
+    Proteomics,
+    SystemsBiology,
+    NetworkInference,
+    NeuralNetwork
+RoxygenNote: 7.2.3
