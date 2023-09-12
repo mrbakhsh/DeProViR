@@ -1,6 +1,11 @@
 Package: DeProViR
 Type: Package
-Title: Emerging infectious diseases, exemplified by the zoonotic COVID-19 
+Title: Deep-Learning Framework Based on Pre-trained Sequence Embeddings for 
+   Predicting Host-Viral Protein-Protein Interactions
+Version: 0.1.0
+Authors@R: c(
+    person("Matineh", "Rahmatbakhsh", ,"matinerb.94@gmail.com",c("aut","trl","cre")))
+Description: Emerging infectious diseases, exemplified by the zoonotic COVID-19 
    pandemic caused by SARS-CoV-2, are grave global threats. Understanding 
    protein-protein interactions (PPIs) between host and viral proteins is 
    essential for therapeutic targets and insights into pathogen replication and 
@@ -10,15 +15,9 @@ Title: Emerging infectious diseases, exemplified by the zoonotic COVID-19
    notably DeProViR, predict PPIs from amino acid sequences, incorporating 
    semantic information with GloVe embeddings. DeProViR employs a Siamese 
    neural network, integrating convolutional and Bi-LSTM networks to enhance 
-   accuracy. It overcomes limitations of feature engineering, offering an 
+   accuracy. It overcomes the limitations of feature engineering, offering an 
    efficient means to predict host-virus interactions, which holds promise 
    for antiviral therapies and advancing our understanding of infectious diseases.
-Version: 0.1.0
-Authors@R: c(
-    person("Matineh", "Rahmatbakhsh", ,"matinerb.94@gmail.com",c("aut","trl","cre")))
-Description: A deep learning framework for modeling and predicting 
-   virus-human interactions from primary amino acid sequences using Siamese-like
-   neural architecture and GloVe embedding.
 License: MIT+ file LICENSE
 Encoding: UTF-8
 URL: https://github.com/mrbakhsh/DeProViR
@@ -49,5 +48,6 @@ biocViews:
     Proteomics,
     SystemsBiology,
     NetworkInference,
-    NeuralNetwork
+    NeuralNetwork,
+    Network
 RoxygenNote: 7.2.3
