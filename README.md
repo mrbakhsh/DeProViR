@@ -1,4 +1,4 @@
-## DeProvIR 
+## DeProViR
 Emerging infectious diseases, exemplified by the zoonotic COVID-19 pandemic 
 caused by SARS-CoV-2, are grave global threats. Understanding protein-protein 
 interactions (PPIs) between host and viral proteins is essential for therapeutic 
@@ -29,14 +29,14 @@ You can then install the `DeProvIR` from bioconductor using:
 if(!requireNamespace("BiocManager", quietly = TRUE)) {
   install.packages("BiocManager") 
 }
-BiocManager::install("DeProvIR")
+BiocManager::install("DeProViR")
 ```
 
 To view documentation for the version of this package installed in your 
 system, start R and enter:
 
 ```r
-browseVignettes("DeProvIR")
+browseVignettes("DeProViR")
 ```
 
 To install the development version in `R`, run:
@@ -45,13 +45,13 @@ To install the development version in `R`, run:
 if(!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools") 
 }
-devtools::install_github("mrbakhsh/DeProvIR")
+devtools::install_github("mrbakhsh/DeProViR")
 ```
 
 
 ## Contribute
 
-Check the github page for [source code](https://github.com/mrbakhsh/DeProvIR)
+Check the github page for [source code](https://github.com/mrbakhsh/DeProViR)
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md 
