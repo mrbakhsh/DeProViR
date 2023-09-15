@@ -5,7 +5,7 @@
 \title{Predictive Model Training using k-fold Validation Strategy}
 \usage{
 ModelTraining(
-  glove_dir,
+  url_path = "https://nlp.stanford.edu/data",
   training_dir = system.file("extdata/training_Set", package = "DeProViR"),
   input_dim = 20,
   output_dim = 100,
@@ -27,8 +27,8 @@ ModelTraining(
 )
 }
 \arguments{
-\item{glove_dir}{dir containing pre-trained word vectors (100d).
-See \code{\link[DeProViR]{gloveEmb_import}}}
+\item{url_path}{URL path to GloVe embedding. Defaults to
+"https://nlp.stanford.edu/data/glove.6B.zip".}
 
 \item{training_dir}{dir containing viral-host training set.
 See \code{\link[DeProViR]{load_TrainingSet}}}

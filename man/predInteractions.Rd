@@ -4,10 +4,15 @@
 \alias{predInteractions}
 \title{Predict Unknown Interactions}
 \usage{
-predInteractions(glove_dir, Testingset, trainedModel)
+predInteractions(
+  url_path = "https://nlp.stanford.edu/data",
+  Testingset,
+  trainedModel
+)
 }
 \arguments{
-\item{glove_dir}{dir containing pre-trained word vectors (100d)}
+\item{url_path}{URL path to GloVe embedding. Defaults to
+"https://nlp.stanford.edu/data/glove.6B.zip".}
 
 \item{Testingset}{A data.frame containing unknown interactions. For demo,
 we can use the file in extdata/test_Set.}
@@ -29,18 +34,7 @@ to indicate interaction.
 predInteractions
 }
 \examples{
-#download glove index
-zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-#Destination folder to save the downloaded file
-dest_folder = tempdir()
-#Download the zip file
-download.file(zip_url, destfile = file.path(dest_folder, "glove.6B.zip"),
-mode = "wb")
-# Unzip only the glove.6B.100d.txt file
-unzip(zipfile = file.path(dest_folder, "glove.6B.zip"),
-files = "glove.6B.100d.txt", exdir = dest_folder)
 if (keras::is_keras_available() & reticulate::py_available()){
-# load pre-trained model
 trainedModel <- Load_PreTrainedModel()
 # load test set (i.e., unknown interactions)
 testing_set <- data.table::fread(
@@ -48,7 +42,8 @@ system.file("extdata/test_set/test_set_unknownInteraction.csv",
 package = "DeProViR"))
 # now predict interactions
 predInteractions <-
- predInteractions(glove_dir = dest_folder, testing_set, trainedModel)
+ predInteractions(url_path = "https://nlp.stanford.edu/data",
+ testing_set, trainedModel)
 }
 
 }

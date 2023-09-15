@@ -2,33 +2,25 @@
 % Please edit documentation in R/functions.R
 \name{gloveEmb_import}
 \alias{gloveEmb_import}
-\title{Load Pre-Trained Word Vectors}
+\title{Cache and Load Pre-Trained Word Vectors}
 \usage{
-gloveEmb_import(glove_dir)
+gloveEmb_import(url_path = "https://nlp.stanford.edu/data")
 }
 \arguments{
-\item{glove_dir}{dir containing pre-trained word vectors (100d).}
+\item{url_path}{URL path to GloVe embedding. Defaults to
+"https://nlp.stanford.edu/data"}
 }
 \value{
 glove embedding
 }
 \description{
-This function loads pre-trained GloVe vectors (100d)
+This function cache and loads pre-trained GloVe
+vectors (100d).
 }
 \details{
 gloveEmb_import
 }
 \examples{
-#' #download glove index
-zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-#Destination folder to save the downloaded file
-dest_folder = tempdir()
-#Download the zip file
-download.file(zip_url, destfile = file.path(dest_folder, "glove.6B.zip"),
-mode = "wb")
-# Unzip only the glove.6B.100d.txt file
-unzip(zipfile = file.path(dest_folder, "glove.6B.zip"),
-files = "glove.6B.100d.txt", exdir = dest_folder)
-#' # load the index
-embeddings_index <- gloveEmb_import(dest_folder)
+embeddings_index <-
+gloveEmb_import(url_path = "https://nlp.stanford.edu/data")
 }
