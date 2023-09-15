@@ -1,38 +1,46 @@
    #' gloveEmb_import
-   #' @title Load Pre-Trained Word Vectors
-   #' @param glove_dir dir containing pre-trained word vectors (100d).
+   #' @title Cache and Load Pre-Trained Word Vectors
+   #' @param url_path  URL path to GloVe embedding. Defaults to
+   #' "https://nlp.stanford.edu/data"
    #' @return glove embedding
-   #' @description This function loads pre-trained GloVe vectors (100d)
+   #' @description This function cache and loads pre-trained GloVe
+   #' vectors (100d).
    #' @export
+   #' @importFrom BiocFileCache BiocFileCache
+   #' @importFrom BiocFileCache bfcrpath
+   #' @importFrom BiocFileCache bfcinfo
+   #' @importFrom utils unzip
    #' @examples
-   #' #' #download glove index
-   #' zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-   #' #Destination folder to save the downloaded file
-   #' dest_folder = tempdir()
-   #' #Download the zip file
-   #' download.file(zip_url, destfile = file.path(dest_folder, "glove.6B.zip"),
-   #' mode = "wb")
-   #' # Unzip only the glove.6B.100d.txt file
-   #' unzip(zipfile = file.path(dest_folder, "glove.6B.zip"),
-   #' files = "glove.6B.100d.txt", exdir = dest_folder)
-   #' #' # load the index
-   #' embeddings_index <- gloveEmb_import(dest_folder)
+   #' embeddings_index <-
+   #' gloveEmb_import(url_path = "https://nlp.stanford.edu/data")
 
-   gloveEmb_import <-
-      function(glove_dir) {
 
-         lines <- readLines(file.path(glove_dir, "glove.6B.100d.txt"))
 
-         embeddings_index <- new.env(hash = TRUE, parent = emptyenv())
-         for (i in seq_along(lines)) {
-            line <- lines[[i]]
-            values <- strsplit(line, " ")[[1]]
-            word <- values[[1]]
-            embeddings_index[[word]] <- as.double(values[-1])
-         }
+    gloveEmb_import <-
+        function(url_path = "https://nlp.stanford.edu/data") {
 
-         return(embeddings_index)
-      }
+
+           url <- paste(
+              url_path,
+              "glove.6B.zip",
+              sep="/")
+            bfc <- BiocFileCache()
+            path <- bfcrpath(bfc, url)
+            lines <- readLines(unzip(zipfile = bfcinfo(bfc["BFC1"])$rpath,
+                                     files = "glove.6B.100d.txt",
+                                     exdir = tempfile()))
+            embeddings_index <- new.env(hash = TRUE, parent = emptyenv())
+            for (i in seq_along(lines)) {
+                line <- lines[[i]]
+                values <- strsplit(line, " ")[[1]]
+                word <- values[[1]]
+                embeddings_index[[word]] <- as.double(values[-1])
+            }
+
+            return(embeddings_index)
+
+        }
+
 
 
    #' load_TrainingSet
@@ -366,8 +374,8 @@
 
    #' ModelTraining
    #' @title Predictive Model Training using k-fold Validation Strategy
-   #' @param glove_dir dir containing pre-trained word vectors (100d).
-   #' See \code{\link[DeProViR]{gloveEmb_import}}
+   #' @param url_path  URL path to GloVe embedding. Defaults to
+   #' "https://nlp.stanford.edu/data/glove.6B.zip".
    #' @param training_dir dir containing viral-host training set.
    #' See \code{\link[DeProViR]{load_TrainingSet}}
    #' @param input_dim Integer. Size of the vocabulary, i.e. amino acid
@@ -438,7 +446,7 @@
    #' @export
 
    ModelTraining <- function(
-      glove_dir,
+      url_path = "https://nlp.stanford.edu/data",
       training_dir = system.file("extdata/training_Set",
                                  package = "DeProViR"),
       input_dim = 20,
@@ -462,7 +470,7 @@
 
       #### Glove importing
       embeddings_index <-
-         gloveEmb_import(glove_dir)
+         gloveEmb_import(url_path)
 
       message("GLoVe importing is done ....")
 
@@ -766,7 +774,8 @@
 
    #'predInteractions
    #'@title Predict Unknown Interactions
-   #'@param glove_dir dir containing pre-trained word vectors (100d)
+   #' @param url_path  URL path to GloVe embedding. Defaults to
+   #' "https://nlp.stanford.edu/data/glove.6B.zip".
    #'@param Testingset A data.frame containing unknown interactions. For demo,
    #'we can use the file in extdata/test_Set.
    #'@param trainedModel Pre-trained model stored in extdata/Pre_trainedModel
@@ -779,18 +788,7 @@
    #'@return Probability scores for unknown interactions
    #'@export
    #'@examples
-   #' #download glove index
-   #' zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-   #' #Destination folder to save the downloaded file
-   #' dest_folder = tempdir()
-   #' #Download the zip file
-   #' download.file(zip_url, destfile = file.path(dest_folder, "glove.6B.zip"),
-   #' mode = "wb")
-   #' # Unzip only the glove.6B.100d.txt file
-   #' unzip(zipfile = file.path(dest_folder, "glove.6B.zip"),
-   #' files = "glove.6B.100d.txt", exdir = dest_folder)
-   #' if (keras::is_keras_available() & reticulate::py_available()){
-   #' # load pre-trained model
+   #'if (keras::is_keras_available() & reticulate::py_available()){
    #' trainedModel <- Load_PreTrainedModel()
    #' # load test set (i.e., unknown interactions)
    #' testing_set <- data.table::fread(
@@ -798,16 +796,19 @@
    #' package = "DeProViR"))
    #' # now predict interactions
    #' predInteractions <-
-   #'  predInteractions(glove_dir = dest_folder, testing_set, trainedModel)
+   #'  predInteractions(url_path = "https://nlp.stanford.edu/data",
+   #'  testing_set, trainedModel)
    #' }
    #'
 
    predInteractions <-
-      function(glove_dir, Testingset, trainedModel) {
+      function(url_path = "https://nlp.stanford.edu/data",
+               Testingset,
+               trainedModel) {
 
          #### Glove importing
          embeddings_index <-
-            gloveEmb_import(glove_dir)
+            gloveEmb_import(url_path)
 
          message("GLoVe importing is done ....")
 
