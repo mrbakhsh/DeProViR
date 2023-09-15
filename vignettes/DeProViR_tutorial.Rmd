@@ -146,7 +146,8 @@ the DeProViR package.
 
 The `ModelTraining`  function takes following parameters:
 
-- `glove_dir` Directory containing pre-trained word vectors (100d).
+- `url_path`  URL path to GloVe embedding. Defaults to 
+"https://nlp.stanford.edu/data".
 See `\code{\link[DeProViR]{gloveEmb_import}}`. 
 
 - `training_dir` Directory containing viral-host training set.
@@ -211,36 +212,18 @@ Defaults to TRUE. See `\code{keras}`.
 - `filepath` A character string indicating the path to save the model weights
 after training. Default to tempdir(). See `\code{keras}`.
 
-To run ModelTraining, we must first download [glove.6B.zip](https://nlp.stanford.edu/projects/glove/) using the 
-following commands:
+To run ModelTraining, we can use the following commands:
 
-```{r} 
-if (keras::is_keras_available() & reticulate::py_available()) {
-library(DeProViR)
-# URL of the zip file
-zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-# Destination folder to save the downloaded file
-dest_folder = tempdir()
-
-# Download the zip file
-download.file(zip_url, 
-              destfile = file.path(dest_folder, "glove.6B.zip"), mode = "wb")
-
-# Unzip only the glove.6B.100d.txt file
-unzip(zipfile = file.path(dest_folder, "glove.6B.zip"), 
-      files = "glove.6B.100d.txt", exdir = dest_folder)
-}
-```
-Then we can proceed with training our model using the following command:
 ```{r, message=FALSE, warning=FALSE}
 
 if (keras::is_keras_available() & reticulate::py_available()){
 library(tensorflow)
 library(data.table)
+library(DeProViR)
 
 tensorflow::set_random_seed(101)
 model_training <- ModelTraining(
-      glove_dir = dest_folder,
+      url_path = "https://nlp.stanford.edu/data",
       training_dir = system.file("extdata/training_Set",
                               package = "DeProViR"),
       input_dim = 20,
@@ -295,7 +278,8 @@ if (keras::is_keras_available() & reticulate::py_available()){
 testing_set <- fread(
    system.file("extdata/test_set/test_set_unknownInteraction.csv",
                                            package = "DeProViR"))
-scoredPPIs <- predInteractions(glove_dir = tempdir(),
+scoredPPIs <- predInteractions( 
+    url_path = "https://nlp.stanford.edu/data",
                  testing_set,
                  trainedModel = pre_trainedmodel)
 scoredPPIs
@@ -306,17 +290,12 @@ scoredPPIs
 ```{r warning=FALSE, message=FALSE}
 if (keras::is_keras_available() & reticulate::py_available()){
 # or using the newly trained model 
-predInteractions(glove_dir = tempdir(),
+predInteractions(url_path = "https://nlp.stanford.edu/data",
                  testing_set,
                  trainedModel = model_training)
 }
 ```
 
-```{r, echo=FALSE}
-file.remove(file.path(dest_folder, "glove.6B.zip"))
-file.remove(file.path(dest_folder, "glove.6B.100d.txt"))
-
-```
 
 
 # Session information
