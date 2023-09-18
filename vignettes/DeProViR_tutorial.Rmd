@@ -217,6 +217,7 @@ To run ModelTraining, we can use the following commands:
 ```{r, message=FALSE, warning=FALSE}
 
 if (keras::is_keras_available() & reticulate::py_available()){
+options(timeout=120)
 library(tensorflow)
 library(data.table)
 library(DeProViR)
