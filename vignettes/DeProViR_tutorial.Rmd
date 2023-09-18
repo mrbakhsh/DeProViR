@@ -214,10 +214,10 @@ after training. Default to tempdir(). See `\code{keras}`.
 
 To run ModelTraining, we can use the following commands:
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 
 if (keras::is_keras_available() & reticulate::py_available()){
-options(timeout=120)
+options(timeout=240)
 library(tensorflow)
 library(data.table)
 library(DeProViR)
@@ -262,6 +262,10 @@ function to load the finely-tuned pre-trained model for predictive purposes.
 
 ```{r message=FALSE, warning=FALSE}
 if (keras::is_keras_available() & reticulate::py_available()){
+options(timeout=240)
+library(tensorflow)
+library(data.table)
+library(DeProViR)
 pre_trainedmodel <- 
    Load_PreTrainedModel()
 }
@@ -288,7 +292,7 @@ scoredPPIs
 ```
 
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, eval=FALSE}
 if (keras::is_keras_available() & reticulate::py_available()){
 # or using the newly trained model 
 predInteractions(url_path = "https://nlp.stanford.edu/data",

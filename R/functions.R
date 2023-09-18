@@ -9,9 +9,10 @@
    #' @importFrom BiocFileCache BiocFileCache
    #' @importFrom BiocFileCache bfcrpath
    #' @importFrom BiocFileCache bfcinfo
+   #' @importFrom BiocFileCache bfcquery
    #' @importFrom utils unzip
    #' @examples
-   #' options(timeout=120)
+   #' options(timeout=240)
    #' embeddings_index <-
    #' gloveEmb_import(url_path = "https://nlp.stanford.edu/data")
 
@@ -27,7 +28,8 @@
               sep="/")
             bfc <- BiocFileCache()
             path <- bfcrpath(bfc, url)
-            lines <- readLines(unzip(zipfile = bfcinfo(bfc["BFC1"])$rpath,
+            getid <- bfcquery(bfc, "glove")$rid
+            lines <- readLines(unzip(zipfile = bfcinfo(bfc[getid])$rpath,
                                      files = "glove.6B.100d.txt",
                                      exdir = tempfile()))
             embeddings_index <- new.env(hash = TRUE, parent = emptyenv())
@@ -103,18 +105,8 @@
    #' @importFrom dplyr %>%
    #' @export
    #' @examples
-   #' #download glove index
-   #' zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-   #' #Destination folder to save the downloaded file
-   #' dest_folder = tempdir()
-   #' #Download the zip file
-   #' download.file(zip_url,
-   #' destfile = file.path(dest_folder, "glove.6B.zip"), mode = "wb")
-   #' # Unzip only the glove.6B.100d.txt file
-   #' unzip(zipfile = file.path(dest_folder, "glove.6B.zip"),
-   #' files = "glove.6B.100d.txt", exdir = dest_folder)
-   #' # load the index
-   #' embeddings_index <- gloveEmb_import(dest_folder)
+   #' # Download and load the index
+   #' embeddings_index <- gloveEmb_import()
    #' if (keras::is_keras_available() & reticulate::py_available()){
    #' #load training set
    #' dt <- load_TrainingSet()
@@ -174,18 +166,8 @@
    #' word-vector-generation vector map.
    #' @export
    #' @examples
-   #' #download glove index
-   #' zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-   #' #Destination folder to save the downloaded file
-   #' dest_folder = tempdir()
-   #' #Download the zip file
-   #' download.file(zip_url,
-   #' destfile = file.path(dest_folder, "glove.6B.zip"), mode = "wb")
-   #' # Unzip only the glove.6B.100d.txt file
-   #' unzip(zipfile = file.path(dest_folder, "glove.6B.zip"),
-   #' files = "glove.6B.100d.txt", exdir = dest_folder)
-   #' # load the index
-   #' embeddings_index <- gloveEmb_import(dest_folder)
+   #' # Download and load the index
+   #' embeddings_index <- gloveEmb_import()
    #' if (keras::is_keras_available() & reticulate::py_available()){
    #' #load training set
    #' dt <- load_TrainingSet()
@@ -796,7 +778,7 @@
    #' system.file("extdata/test_set/test_set_unknownInteraction.csv",
    #' package = "DeProViR"))
    #' # now predict interactions
-   #' options(timeout=120)
+   #' options(timeout=240)
    #' predInteractions <-
    #'  predInteractions(url_path = "https://nlp.stanford.edu/data",
    #'  testing_set, trainedModel)

@@ -29,18 +29,8 @@ word-vector-generationvector map.
 encode_ViralSeq
 }
 \examples{
-#download glove index
-zip_url <- "https://nlp.stanford.edu/data/glove.6B.zip"
-#Destination folder to save the downloaded file
-dest_folder = tempdir()
-#Download the zip file
-download.file(zip_url,
-destfile = file.path(dest_folder, "glove.6B.zip"), mode = "wb")
-# Unzip only the glove.6B.100d.txt file
-unzip(zipfile = file.path(dest_folder, "glove.6B.zip"),
-files = "glove.6B.100d.txt", exdir = dest_folder)
-# load the index
-embeddings_index <- gloveEmb_import(dest_folder)
+# Download and load the index
+embeddings_index <- gloveEmb_import()
 if (keras::is_keras_available() & reticulate::py_available()){
 #load training set
 dt <- load_TrainingSet()
