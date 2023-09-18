@@ -275,6 +275,7 @@ yet to be identified. This can be achieved by executing the following commands:
 
 ```{r}
 if (keras::is_keras_available() & reticulate::py_available()){
+options(timeout=120)
 #load the demo test set (unknown interactions)
 testing_set <- fread(
    system.file("extdata/test_set/test_set_unknownInteraction.csv",
@@ -290,6 +291,7 @@ scoredPPIs
 
 ```{r warning=FALSE, message=FALSE}
 if (keras::is_keras_available() & reticulate::py_available()){
+options(timeout=120)
 # or using the newly trained model 
 predInteractions(url_path = "https://nlp.stanford.edu/data",
                  testing_set,
