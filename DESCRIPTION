@@ -34,7 +34,8 @@ Imports:
     pROC,
     PRROC,
     readr,
-    stats
+    stats,
+    BiocFileCache
 VignetteBuilder: knitr
 Suggests:
    rmarkdown,
