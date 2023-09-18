@@ -2,7 +2,7 @@ Package: DeProViR
 Type: Package
 Title: A Deep-Learning Framework Based on Pre-trained Sequence Embeddings for 
    Predicting Host-Viral Protein-Protein Interactions
-Version: 0.99.3
+Version: 0.99.4
 Authors@R: c(
     person("Matineh", "Rahmatbakhsh", ,"matinerb.94@gmail.com",c("aut","trl","cre")))
 Description: Emerging infectious diseases, exemplified by the zoonotic COVID-19 
