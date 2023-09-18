@@ -10,7 +10,6 @@
    #' @importFrom BiocFileCache bfcrpath
    #' @importFrom BiocFileCache bfcinfo
    #' @importFrom BiocFileCache bfcquery
-   #' @importFrom utils unzip
    #' @examples
    #' options(timeout=240)
    #' embeddings_index <-
