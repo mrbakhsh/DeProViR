@@ -214,7 +214,7 @@ after training. Default to tempdir(). See `\code{keras}`.
 
 To run ModelTraining, we can use the following commands:
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE}
+```{r, message=FALSE, warning=FALSE}
 
 if (keras::is_keras_available() & reticulate::py_available()){
 options(timeout=240)
@@ -292,7 +292,7 @@ scoredPPIs
 ```
 
 
-```{r warning=FALSE, message=FALSE, eval=FALSE}
+```{r warning=FALSE, message=FALSE}
 if (keras::is_keras_available() & reticulate::py_available()){
 # or using the newly trained model 
 predInteractions(url_path = "https://nlp.stanford.edu/data",
