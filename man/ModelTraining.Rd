@@ -6,7 +6,7 @@
 \usage{
 ModelTraining(
   url_path = "https://nlp.stanford.edu/data",
-  training_dir = system.file("extdata/training_Set", package = "DeProViR"),
+  training_dir = system.file("extdata", "training_Set", package = "DeProViR"),
   input_dim = 20,
   output_dim = 100,
   filters_layer1CNN = 32,

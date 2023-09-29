@@ -15,7 +15,7 @@ Load_PreTrainedModel(
   layer_lstm = 64,
   units = 8,
   metrics = "AUC",
-  filepath = system.file("extdata/Pre_trainedModel", package = "DeProViR")
+  filepath = system.file("extdata", "Pre_trainedModel", package = "DeProViR")
 )
 }
 \arguments{
@@ -72,7 +72,5 @@ previously using \code{\link[DeProViR]{ModelTraining}}
 Load_PreTrainedModel
 }
 \examples{
-if (keras::is_keras_available() & reticulate::py_available()){
 Loading_trainedModel <- Load_PreTrainedModel()
-}
 }

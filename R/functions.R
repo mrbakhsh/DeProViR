@@ -10,6 +10,7 @@
    #' @importFrom BiocFileCache bfcrpath
    #' @importFrom BiocFileCache bfcinfo
    #' @importFrom BiocFileCache bfcquery
+   #' @importFrom utils unzip
    #' @examples
    #' options(timeout=240)
    #' embeddings_index <-
@@ -60,7 +61,7 @@
    #' dt <- load_TrainingSet()
 
    load_TrainingSet <-
-      function(training_dir =  system.file("extdata/training_Set",
+      function(training_dir =  system.file("extdata", "training_Set",
                                            package = "DeProViR")) {
 
 
@@ -106,12 +107,10 @@
    #' @examples
    #' # Download and load the index
    #' embeddings_index <- gloveEmb_import()
-   #' if (keras::is_keras_available() & reticulate::py_available()){
    #' #load training set
    #' dt <- load_TrainingSet()
    #' #encoding
    #' encoded_seq <- encode_ViralSeq(dt, embeddings_index)
-   #' }
 
    encode_ViralSeq <- function(trainingSet,
                                embeddings_index) {
@@ -167,12 +166,10 @@
    #' @examples
    #' # Download and load the index
    #' embeddings_index <- gloveEmb_import()
-   #' if (keras::is_keras_available() & reticulate::py_available()){
    #' #load training set
    #' dt <- load_TrainingSet()
    #' #encoding
    #' encoded_seq <- encode_HostSeq(dt, embeddings_index)
-   #' }
 
 
    encode_HostSeq <- function(trainingSet,embeddings_index) {
@@ -429,7 +426,7 @@
 
    ModelTraining <- function(
       url_path = "https://nlp.stanford.edu/data",
-      training_dir = system.file("extdata/training_Set",
+      training_dir = system.file("extdata", "training_Set",
                                  package = "DeProViR"),
       input_dim = 20,
       output_dim = 100,
@@ -647,9 +644,7 @@
    #' @importFrom data.table fread
    #' @export
    #' @examples
-   #' if (keras::is_keras_available() & reticulate::py_available()){
    #' Loading_trainedModel <- Load_PreTrainedModel()
-   #' }
 
 
    Load_PreTrainedModel <-
@@ -663,7 +658,7 @@
                layer_lstm = 64,
                units = 8,
                metrics = "AUC",
-               filepath = system.file("extdata/Pre_trainedModel",
+               filepath = system.file("extdata", "Pre_trainedModel",
                                       package = "DeProViR")){
 
 
@@ -671,7 +666,7 @@
 
          ## viral side
          embedding_matrix_v <-
-            fread(system.file("extdata/Pre_trainedModel/viral_embedding.csv",
+            fread(system.file("extdata","Pre_trainedModel","viral_embedding.csv",
                                  package = "DeProViR"))
          embedding_matrix_v <- as.matrix(embedding_matrix_v)
 
@@ -701,7 +696,7 @@
 
          ## host side
          embedding_matrix_h <-
-            fread(system.file("extdata/Pre_trainedModel/host_embedding.csv",
+            fread(system.file("extdata","Pre_trainedModel","host_embedding.csv",
                                  package = "DeProViR"))
          embedding_matrix_h <- as.matrix(embedding_matrix_h)
 
@@ -770,19 +765,16 @@
    #'@return Probability scores for unknown interactions
    #'@export
    #'@examples
-   #'if (keras::is_keras_available() & reticulate::py_available()){
    #' trainedModel <- Load_PreTrainedModel()
    #' # load test set (i.e., unknown interactions)
    #' testing_set <- data.table::fread(
-   #' system.file("extdata/test_set/test_set_unknownInteraction.csv",
+   #' system.file("extdata", "test_Set", "test_set_unknownInteraction.csv",
    #' package = "DeProViR"))
    #' # now predict interactions
    #' options(timeout=240)
    #' predInteractions <-
    #'  predInteractions(url_path = "https://nlp.stanford.edu/data",
    #'  testing_set, trainedModel)
-   #' }
-   #'
 
    predInteractions <-
       function(url_path = "https://nlp.stanford.edu/data",

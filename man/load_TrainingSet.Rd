@@ -5,7 +5,7 @@
 \title{Load Demo Training Set}
 \usage{
 load_TrainingSet(
-  training_dir = system.file("extdata/training_Set", package = "DeProViR")
+  training_dir = system.file("extdata", "training_Set", package = "DeProViR")
 )
 }
 \arguments{

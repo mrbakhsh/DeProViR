@@ -31,10 +31,8 @@ encode_HostSeq
 \examples{
 # Download and load the index
 embeddings_index <- gloveEmb_import()
-if (keras::is_keras_available() & reticulate::py_available()){
 #load training set
 dt <- load_TrainingSet()
 #encoding
 encoded_seq <- encode_HostSeq(dt, embeddings_index)
-}
 }
