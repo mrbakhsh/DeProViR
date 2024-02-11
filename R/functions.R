@@ -24,20 +24,20 @@
               url_path,
               "glove.6B.zip",
               sep="/")
-            bfc <- BiocFileCache()
-            path <- bfcrpath(bfc, url)
-            getid <- bfcquery(bfc, "glove")$rid
-            lines <- readLines(unzip(zipfile = bfcinfo(bfc[getid])$rpath,
-                                     files = "glove.6B.100d.txt",
-                                     exdir = tempfile()))
-            embeddings_index <- new.env(hash = TRUE, parent = emptyenv())
-            for (i in seq_along(lines)) {
-                line <- lines[[i]]
-                values <- strsplit(line, " ")[[1]]
-                word <- values[[1]]
-                embeddings_index[[word]] <- as.double(values[-1])
-            }
-
+           bfc <- BiocFileCache()
+           path <- bfcrpath(bfc, url)
+           getid <- bfcquery(bfc, "glove")$rid
+           lines <- readLines(unzip(zipfile = bfcinfo(bfc[getid])$rpath,
+                                    files = "glove.6B.100d.txt",
+                                    exdir = tempfile()))
+           embeddings_index <- new.env(hash = TRUE, parent = emptyenv())
+           
+           for (i in seq_along(lines)) {
+              line <- lines[[i]]
+              values <- strsplit(line, " ")[[1]]
+              word <- values[[1]]
+              embeddings_index[[word]] <- as.double(values[-1])
+           }
             return(embeddings_index)
 
         }
@@ -759,8 +759,7 @@
    #'@examples
    #' trainedModel <- loadPreTrainedModel()
    #' # load test set (i.e., unknown interactions)
-   #'testing_set <- 
-   #'   data.table::fread(system.file("extdata", "test_Set", 
+   #'testing_set <- data.table::fread(system.file("extdata", "test_Set", 
    #'                                "test_set_unknownInteraction.csv", 
    #'                                 package = "DeProViR"))
    #' # now predict interactions
