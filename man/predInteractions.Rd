@@ -33,9 +33,9 @@ to indicate interaction.
 \examples{
 trainedModel <- loadPreTrainedModel()
 # load test set (i.e., unknown interactions)
-testing_set <- data.table::fread(
-system.file("extdata", "test_Set", "test_set_unknownInteraction.csv",
-package = "DeProViR"))
+testing_set <- data.table::fread(system.file("extdata", "test_Set", 
+                               "test_set_unknownInteraction.csv", 
+                                package = "DeProViR"))
 # now predict interactions
 options(timeout=240)
 predInteractions <- predInteractions(url_path = "https://nlp.stanford.edu/data",
